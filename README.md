@@ -74,12 +74,21 @@ Ligado por padrão (Ajustes → 🍅 Pomodoro): 25 min de foco, 5 de pausa, 15 d
 - Ao estourar o tempo: vibra/notifica e oferece ajuda com a dúvida já preenchida — ChatGPT, Claude (pergunta pede dicas passo a passo, não a resposta pronta), Google, YouTube, Stack Overflow ou copiar a pergunta.
 - **Resolvi** / **Anotar e seguir**: tudo vira registro. Dúvidas não resolvidas aparecem em "Dúvidas em aberto" (aba Semana) e na revisão semanal, junto com o tempo total travado.
 
+## Usar no celular e no computador
+
+O app funciona em qualquer navegador moderno (Chrome/Edge no PC também instalam como app). Os dados de cada aparelho ficam nele — para levar de um para o outro, sem conta nem servidor:
+
+1. No aparelho onde você mexeu por último: **Ajustes → 📤 Enviar meus dados** (abre o compartilhar: WhatsApp, Drive, e-mail; sem suporte, baixa o arquivo).
+2. No outro: **📥 Receber dados de outro aparelho** e escolha o arquivo.
+
+A troca **junta** em vez de substituir (`src/troca.ts`): cada dia da agenda, lista do dia, semana, configuração e projetos guardam a hora da última alteração, e fica a versão mais recente de cada um; o que só existe em um aparelho é mantido; pomodoros ficam com a maior contagem do dia; dúvidas se somam (resolvida em qualquer aparelho = resolvida). Importar o mesmo arquivo de novo não muda nada.
+
 ## Onde ficam os dados
 
 Tudo fica no `localStorage` do navegador do aparelho (chaves `rotina.*`): configurações, listas, agendas, blocos feitos, semanas, metas, projetos, travamentos e o foco em andamento. Não há servidor nem sincronização.
 
 - O app pede **armazenamento persistente** ao navegador para reduzir o risco de limpeza automática.
-- Limpar dados do Chrome, desinstalar o app ou trocar de celular **apaga tudo** — use **Ajustes → Baixar backup** (.json) e **Restaurar backup**.
+- Limpar dados do Chrome, desinstalar o app ou trocar de celular **apaga tudo** — use **Ajustes → Baixar backup** (.json) e **Restaurar backup** (este substitui tudo; para trocar entre aparelhos use Enviar/Receber).
 
 ## Stack
 
@@ -112,5 +121,6 @@ O PWA precisa de **HTTPS** (microfone e instalação não funcionam via IP da re
 | `src/ModoFoco.tsx` | Cronômetro de foco e fluxo “Travei → tentar → pedir ajuda” |
 | `src/useDitado.ts` | Hook de reconhecimento de voz (Web Speech API) |
 | `src/agenda.ts` | Datas, exportação .ics, notificações |
+| `src/troca.ts` | Troca entre aparelhos por arquivo, com mesclagem pelo mais recente |
 | `src/storage.ts` | Persistência local, backup/restauração e armazenamento persistente |
 | `src/App.tsx` | Interface (Agenda, Planejar, Ajustes) |

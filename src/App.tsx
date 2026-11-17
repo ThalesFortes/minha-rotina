@@ -36,6 +36,7 @@ import {
   salvarRascunho,
 } from "./storage";
 import type { Bloco, Config, Foco, Meta, Passo, Plano, Projeto, Semana, Tarefa, Travamento } from "./types";
+import { compartilharArquivo, mesclarArquivo, ultimaTroca, useCarimbos } from "./troca";
 import { useDitado } from "./useDitado";
 
 type Aba = "agenda" | "novo" | "semana" | "ajustes";
@@ -48,6 +49,17 @@ const ICONE: Record<Bloco["tipo"], string> = {
   deslocamento: "🚶",
 };
 
+/** Mensagem deixada antes de recarregar (ex.: resultado de "Receber dados"). */
+const AVISO_INICIAL = (() => {
+  try {
+    const msg = sessionStorage.getItem("rotina.avisoTroca") ?? "";
+    sessionStorage.removeItem("rotina.avisoTroca");
+    return msg;
+  } catch {
+    return "";
+  }
+})();
+
 const agoraMin = () => {
   const d = new Date();
   return d.getHours() * 60 + d.getMinutes();
@@ -57,10 +69,10 @@ export default function App() {
   const [config, setConfig] = useState<Config>(carregarConfig);
   const [planos, setPlanos] = useState<Record<string, Plano>>(carregarPlanos);
   const [listas, setListas] = useState<Record<string, Tarefa[]>>(carregarListas);
-  const [aba, setAba] = useState<Aba>("novo");
+  const [aba, setAba] = useState<Aba>(AVISO_INICIAL ? "ajustes" : "novo");
   const [dia, setDia] = useState<string>(hojeISO());
   const [texto, setTexto] = useState<string>(carregarRascunho);
-  const [aviso, setAviso] = useState("");
+  const [aviso, setAviso] = useState(AVISO_INICIAL);
   const [agora, setAgora] = useState(() => Date.now());
   const [semanas, setSemanas] = useState<Record<string, Semana>>(carregarSemanas);
   const [adiada, setAdiada] = useState<string>(carregarAdiada);
@@ -242,6 +254,30 @@ export default function App() {
     });
     setFoco(null);
     setFocoAberto(false);
+  }
+
+  useCarimbos({ planos, listas, semanas, config, projetos, travamentos, pomodoros, foco });
+  const [trocaEm, setTrocaEm] = useState(ultimaTroca);
+
+  async function enviarDados() {
+    const r = await compartilharArquivo(`minha-rotina-${hoje}`, exportarTudo());
+    if (r !== "cancelado") setTrocaEm(ultimaTroca());
+    if (r === "baixado") setAviso("Arquivo salvo em Downloads. Leve-o para o outro aparelho (Drive, WhatsApp, e-mail) e toque em “Receber dados” lá.");
+  }
+
+  async function receberDados(arquivo: File | undefined) {
+    if (!arquivo) return;
+    try {
+      const r = mesclarArquivo(await arquivo.text());
+      try {
+        sessionStorage.setItem("rotina.avisoTroca", `Dados recebidos: ${r.novos} novos, ${r.atualizados} atualizados${r.mantidos ? `, ${r.mantidos} mantidos (os daqui eram mais recentes)` : ""}.`);
+      } catch {
+        /* ignora */
+      }
+      location.reload();
+    } catch (e) {
+      setAviso(e instanceof Error ? e.message : "Não consegui ler o arquivo.");
+    }
   }
 
   function baixarBackup() {
@@ -666,6 +702,23 @@ export default function App() {
               <small>No Modo Foco, ao tocar em “Travei”, o app conta esse tempo e depois sugere IA/pesquisa.</small>
             </label>
 
+            <h2>🔄 Celular ↔ computador</h2>
+            <p className="dica">
+              Para ter os mesmos dados nos dois: no aparelho onde você mexeu por último, toque em <strong>Enviar meus dados</strong> e
+              mande o arquivo para você mesmo (WhatsApp, Drive, e-mail). No outro, toque em <strong>Receber dados</strong> e escolha o
+              arquivo. Nada é apagado: de cada dia, semana e projeto fica a versão mais recente.
+            </p>
+            <button className="primario largo" onClick={enviarDados}>
+              📤 Enviar meus dados
+            </button>
+            <label className="secundario largo botao-arquivo">
+              📥 Receber dados de outro aparelho
+              <input type="file" accept="application/json,.json,text/plain,.txt" onChange={(e) => receberDados(e.target.files?.[0])} />
+            </label>
+            <small className="dica">
+              {trocaEm ? `Última troca: ${new Date(trocaEm).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" })}.` : "Nenhuma troca feita ainda."}
+            </small>
+
             <h2>💾 Seus dados</h2>
             <p className="dica">
               Tudo fica salvo só neste celular, no navegador
@@ -679,7 +732,7 @@ export default function App() {
               ⬆️ Restaurar backup
               <input type="file" accept="application/json,.json" onChange={(e) => restaurarBackup(e.target.files?.[0])} />
             </label>
-            <small className="dica">Restaurar substitui todos os dados atuais pelos do arquivo.</small>
+            <small className="dica">Restaurar substitui todos os dados atuais pelos do arquivo (use para recuperar, não para trocar entre aparelhos).</small>
           </section>
         )}
       </main>
