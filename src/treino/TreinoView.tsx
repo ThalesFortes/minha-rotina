@@ -373,9 +373,12 @@ export function TreinoView() {
                   <button onClick={() => setChecklist((d) => ({ ...d, agua: Math.max(0, d.agua - 1) }))} aria-label="Menos um copo">
                     −
                   </button>
-                  <b>
-                    {diaCheck.agua}/{META_AGUA} copos
-                  </b>
+                  <span className="tr-valor">
+                    <b>
+                      {diaCheck.agua}/{META_AGUA}
+                    </b>
+                    <small>copos</small>
+                  </span>
                   <button onClick={() => setChecklist((d) => ({ ...d, agua: d.agua + 1 }))} aria-label="Mais um copo">
                     +
                   </button>
@@ -387,9 +390,12 @@ export function TreinoView() {
                   <button onClick={() => setChecklist((d) => ({ ...d, cafe: Math.max(0, d.cafe - 1) }))} aria-label="Menos uma xícara">
                     −
                   </button>
-                  <b className={diaCheck.cafe > LIMITE_CAFE ? "tr-acima" : ""}>
-                    {diaCheck.cafe}/{LIMITE_CAFE} xícaras
-                  </b>
+                  <span className={`tr-valor ${diaCheck.cafe > LIMITE_CAFE ? "tr-acima" : ""}`}>
+                    <b>
+                      {diaCheck.cafe}/{LIMITE_CAFE}
+                    </b>
+                    <small>xícaras</small>
+                  </span>
                   <button onClick={() => setChecklist((d) => ({ ...d, cafe: d.cafe + 1 }))} aria-label="Mais uma xícara">
                     +
                   </button>
