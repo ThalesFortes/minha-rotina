@@ -10,6 +10,7 @@ import { metasDaSemana, ritmoProjeto } from "./projetos";
 import { RevisaoSemanal } from "./RevisaoSemanal";
 import { diaMes, distribuirSemana, nomeCurto, semanaAlvo, somarDias } from "./semana";
 import { SemanaView } from "./SemanaView";
+import { TreinoView } from "./treino/TreinoView";
 import {
   carregarAdiada,
   carregarConfig,
@@ -39,7 +40,10 @@ import type { Bloco, Config, Foco, Meta, Passo, Plano, Projeto, Semana, Tarefa, 
 import { compartilharArquivo, mesclarArquivo, ultimaTroca, useCarimbos } from "./troca";
 import { useDitado } from "./useDitado";
 
-type Aba = "agenda" | "novo" | "semana" | "ajustes";
+type Aba = "agenda" | "novo" | "semana" | "treino" | "ajustes";
+
+/** Blocos da agenda que abrem a aba Treino em vez do Modo Foco. */
+const ehTreino = (titulo: string) => /treino|corrida|correr|calistenia|academia|muscula|exerc[ií]cio/i.test(titulo);
 
 const ICONE: Record<Bloco["tipo"], string> = {
   fixo: "📌",
@@ -337,6 +341,7 @@ export default function App() {
       <header className="topo">
         <h1>Minha Rotina</h1>
       </header>
+      {aba !== "treino" && (
       <div className="faixa-dias" role="tablist">
         {Array.from({ length: 7 }, (_, i) => somarDias(hoje, i)).map((dd, i) => (
           <button key={dd} className={dia === dd ? "ativo" : ""} onClick={() => setDia(dd)}>
@@ -345,6 +350,7 @@ export default function App() {
           </button>
         ))}
       </div>
+      )}
 
       <main className="conteudo">
         {aviso && (
@@ -466,7 +472,12 @@ export default function App() {
                         <span className="obs">{resumoPassos(passosDoBloco(plano.data, b.tarefaId))} passos</span>
                       )}
                     </div>
-                    {b.tipo === "tarefa" && !b.feito && (
+                    {b.tipo !== "pausa" && !b.feito && ehTreino(b.titulo) && (
+                      <button className="icone play" onClick={() => setAba("treino")} aria-label={`Abrir o treino: ${b.titulo}`}>
+                        🏋️
+                      </button>
+                    )}
+                    {b.tipo === "tarefa" && !b.feito && !ehTreino(b.titulo) && (
                       <button className="icone play" onClick={() => iniciarFoco(b)} aria-label={`Começar ${b.titulo} em modo foco`}>
                         ▶
                       </button>
@@ -565,6 +576,8 @@ export default function App() {
             </ul>
           </section>
         )}
+
+        {aba === "treino" && <TreinoView />}
 
         {aba === "ajustes" && (
           <section className="cartao ajustes">
@@ -746,6 +759,9 @@ export default function App() {
         </button>
         <button className={aba === "semana" ? "ativo" : ""} onClick={() => setAba("semana")}>
           <span>🎯</span>Semana
+        </button>
+        <button className={`aba-treino ${aba === "treino" ? "ativo" : ""}`} onClick={() => setAba("treino")}>
+          <span>🏋️</span>Treino
         </button>
         <button className={aba === "ajustes" ? "ativo" : ""} onClick={() => setAba("ajustes")}>
           <span>⚙️</span>Ajustes

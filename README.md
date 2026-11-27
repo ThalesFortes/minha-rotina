@@ -74,6 +74,20 @@ Ligado por padrão (Ajustes → 🍅 Pomodoro): 25 min de foco, 5 de pausa, 15 d
 - Ao estourar o tempo: vibra/notifica e oferece ajuda com a dúvida já preenchida — ChatGPT, Claude (pergunta pede dicas passo a passo, não a resposta pronta), Google, YouTube, Stack Overflow ou copiar a pergunta.
 - **Resolvi** / **Anotar e seguir**: tudo vira registro. Dúvidas não resolvidas aparecem em "Dúvidas em aberto" (aba Semana) e na revisão semanal, junto com o tempo total travado.
 
+## Treino
+
+Aba **🏋️ Treino** com calistenia em casa, corrida e rotina para a coluna (`src/treino/`):
+
+- **Hoje:** o treino do dia e um **checklist de saúde** (remédio, sal, proteína, sono, água e café). Treino e coluna se marcam sozinhos quando você salva.
+- **Força A / Força B:** aquecimento guiado, séries para marcar (o descanso começa sozinho), passo a passo, versão mais fácil e vídeo curto de cada exercício. A e B se alternam a cada semana.
+- **Corrida:** plano de 8 semanas com cronômetro guiado (corra/ande) e sugestão de avançar depois de 3 corridas na mesma semana.
+- **Coluna:** rotina de 7 min para lombar e cervical.
+- **Progresso:** teste (flexão e barra viram "metade do máximo"), histórico e aviso ↑ quando um exercício foi completado em 2 treinos seguidos.
+- **Guia:** primeiros passos e cuidados (pressão alta / remédio).
+- Blocos da agenda com "treino", "corrida", "academia"… ganham o botão 🏋️, que abre a aba Treino.
+
+Os dados ficam em `rotina.treino.*`, entram no backup e são mesclados em Enviar/Receber dados.
+
 ## Usar no celular e no computador
 
 O app funciona em qualquer navegador moderno (Chrome/Edge no PC também instalam como app). Os dados de cada aparelho ficam nele — para levar de um para o outro, sem conta nem servidor:
@@ -123,4 +137,5 @@ O PWA precisa de **HTTPS** (microfone e instalação não funcionam via IP da re
 | `src/agenda.ts` | Datas, exportação .ics, notificações |
 | `src/troca.ts` | Troca entre aparelhos por arquivo, com mesclagem pelo mais recente |
 | `src/storage.ts` | Persistência local, backup/restauração e armazenamento persistente |
-| `src/App.tsx` | Interface (Agenda, Planejar, Ajustes) |
+| `src/treino/` | Aba Treino: dados dos exercícios, histórico, cronômetro e checklist de saúde |
+| `src/App.tsx` | Interface (Agenda, Planejar, Semana, Treino, Ajustes) |

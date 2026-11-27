@@ -3,10 +3,11 @@
  *
  * Cada "documento" (um dia da agenda, a lista de um dia, uma semana, as configurações,
  * os projetos…) ganha um carimbo com a hora da última alteração. Ao receber o arquivo
- * de outro aparelho, cada documento fica com a versão mais recente; pomodoros e
- * travamentos (dúvidas) se somam.
+ * de outro aparelho, cada documento fica com a versão mais recente; pomodoros,
+ * travamentos (dúvidas) e o histórico de treino se somam.
  */
 import { useEffect, useRef } from "react";
+import { mesclarTreino } from "./treino/store";
 import type { Config, Foco, Plano, Projeto, Semana, Tarefa, Travamento } from "./types";
 
 const CHAVE_CARIMBOS = "rotina.carimbos";
@@ -152,6 +153,9 @@ export function mesclarArquivo(texto: string): ResultadoTroca {
     } else if (t.resolvido && !atual.resolvido) porId.set(t.id, { ...atual, resolvido: true });
   }
   gravarJson("rotina.travamentos", [...porId.values()]);
+
+  // Treino: histórico, checklist, teste e semana da corrida
+  r.novos += mesclarTreino(de);
 
   gravarJson(CHAVE_CARIMBOS, carimbosAqui);
   gravarJson(CHAVE_ULTIMA_TROCA, new Date().toISOString());

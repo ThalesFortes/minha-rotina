@@ -1,0 +1,437 @@
+/* Aba Treino — mesmo visual do app, com azul escuro como cor de destaque. */
+.treino {
+  --primaria: #1d4ed8;
+  --primaria-texto: #ffffff;
+  --tr-acento: #6ea8ff;
+  --destaque: #6ea8ff;
+  --tr-acento-fundo: #0f1d3d;
+  --tr-alerta: #f2b8b5;
+  padding-bottom: 150px;
+}
+
+.treino ul,
+.treino ol {
+  padding-left: 20px;
+  margin: 6px 0;
+}
+.treino li {
+  margin: 4px 0;
+}
+.treino p {
+  margin: 6px 0;
+}
+
+.tr-subabas {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin: 0 -16px 12px;
+  padding: 2px 16px 6px;
+  position: sticky;
+  top: 52px;
+  z-index: 1;
+  background: var(--fundo);
+}
+.tr-subabas::-webkit-scrollbar {
+  display: none;
+}
+.tr-subabas button {
+  flex: none;
+  border: 1px solid var(--borda);
+  background: var(--cartao);
+  color: var(--suave);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 40px;
+}
+.tr-subabas button.ativo {
+  background: var(--primaria);
+  border-color: var(--primaria);
+  color: var(--primaria-texto);
+}
+
+.tr-titulo {
+  font-size: 1.4rem;
+  margin: 4px 0 2px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.tr-tag {
+  font-size: 0.75rem;
+  background: var(--primaria);
+  color: var(--primaria-texto);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+.tr-destaque {
+  border-color: var(--primaria);
+  background: linear-gradient(180deg, var(--tr-acento-fundo), var(--cartao));
+}
+.tr-destaque small {
+  color: var(--tr-acento);
+  font-weight: 600;
+}
+.tr-destaque h2 {
+  font-size: 1.35rem;
+}
+.tr-largo {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.tr-cabeca {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.tr-cabeca h2 {
+  margin: 4px 0 0;
+}
+.tr-cabeca .dica {
+  margin: 2px 0 0;
+}
+.tr-num {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--primaria);
+  color: var(--primaria-texto);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+}
+.tr-dose {
+  margin: 10px 0 8px;
+}
+.tr-dose b {
+  font-size: 1.05rem;
+}
+.tr-evoluir {
+  background: var(--tr-acento-fundo);
+  color: var(--tr-acento);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+.tr-evoluir-cartao {
+  border: 2px solid var(--primaria);
+}
+
+.tr-series {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tr-series button {
+  min-width: 76px;
+  min-height: 44px;
+  border-radius: 10px;
+  border: 2px solid var(--primaria);
+  background: transparent;
+  font-weight: 600;
+  cursor: pointer;
+}
+.tr-series button.feita {
+  background: var(--primaria);
+  color: var(--primaria-texto);
+}
+.tr-pequeno {
+  font-size: 0.82rem;
+  color: var(--suave);
+}
+.tr-ok {
+  color: var(--tr-acento);
+  font-weight: 600;
+  min-height: 1em;
+}
+
+.tr-exercicio details {
+  margin-top: 8px;
+  border-top: 1px dashed var(--borda);
+  padding-top: 6px;
+}
+.tr-exercicio summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--tr-acento);
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+.tr-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.tr-botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid var(--borda);
+  background: transparent;
+  color: var(--texto);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 0.92rem;
+}
+.tr-botao.forte {
+  background: var(--primaria);
+  border-color: var(--primaria);
+  color: var(--primaria-texto);
+}
+
+.tr-lista-guiada {
+  list-style: none;
+  padding: 0 !important;
+}
+.tr-lista-guiada li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--borda);
+}
+.tr-lista-guiada p {
+  margin: 2px 0 0;
+  color: var(--suave);
+  font-size: 0.88rem;
+}
+.tr-lista-guiada .tr-botao {
+  flex: none;
+}
+
+.tr-alerta {
+  border-color: var(--tr-alerta);
+}
+.tr-alerta h2 {
+  color: var(--tr-alerta);
+}
+
+.tr-linha {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.tr-contador {
+  font-weight: 800;
+  color: var(--tr-acento);
+}
+.tr-checklist {
+  list-style: none;
+  padding: 0 !important;
+}
+.tr-checklist li {
+  border-bottom: 1px solid var(--borda);
+  padding: 6px 0;
+}
+.tr-checklist label {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-height: 36px;
+  cursor: pointer;
+}
+.tr-checklist input {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--primaria);
+  flex: none;
+}
+.tr-checklist small {
+  display: block;
+  margin-left: 32px;
+  color: var(--suave);
+  font-size: 0.75rem;
+}
+.tr-contadores {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+.tr-contadores > div {
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  padding: 10px;
+}
+.tr-passo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 6px;
+}
+.tr-passo b {
+  font-size: 0.9rem;
+  text-align: center;
+}
+.tr-passo button {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--borda);
+  background: var(--fundo);
+  font-size: 1.2rem;
+  cursor: pointer;
+  flex: none;
+}
+.tr-acima {
+  color: var(--tr-alerta) !important;
+}
+
+.tr-semana,
+.tr-historico {
+  list-style: none;
+  padding: 0 !important;
+}
+.tr-semana li,
+.tr-historico li {
+  display: grid;
+  grid-template-columns: 7em minmax(0, 1fr) 2em;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--borda);
+}
+.tr-historico li {
+  grid-template-columns: 4em minmax(0, 1fr);
+}
+.tr-semana li.hoje {
+  color: var(--tr-acento);
+  font-weight: 700;
+}
+.tr-semana small {
+  color: var(--suave);
+}
+
+.tr-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0;
+}
+.tr-chips button {
+  min-width: 46px;
+  min-height: 44px;
+  border-radius: 10px;
+  border: 2px solid var(--primaria);
+  background: transparent;
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+}
+.tr-chips button.ativo {
+  background: var(--primaria);
+  color: var(--primaria-texto);
+}
+.tr-fases {
+  list-style: none;
+  padding: 0 !important;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.tr-fases li {
+  margin: 0;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: var(--borda);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.tr-fases li.correr {
+  background: var(--primaria);
+  color: var(--primaria-texto);
+}
+
+.tr-campo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--borda);
+}
+.tr-campo input {
+  width: 96px !important;
+  text-align: right;
+  padding: 8px 10px !important;
+}
+
+/* Cronômetro fixo acima da barra de abas */
+.tr-cronometro {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(62px + env(safe-area-inset-bottom));
+  z-index: 3;
+  max-width: 560px;
+  margin: 0 auto;
+  background: #0b1630;
+  border-top: 2px solid var(--primaria);
+  color: #eef3ff;
+  padding: 10px 16px 12px;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.5);
+}
+.tr-crono-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.tr-crono-topo strong {
+  display: block;
+  font-size: 1.05rem;
+}
+.tr-crono-topo strong.destaque {
+  color: var(--tr-acento);
+}
+.tr-crono-topo small {
+  opacity: 0.8;
+}
+.tr-tempo {
+  font-size: 2.6rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.tr-barra {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 8px 0;
+}
+.tr-barra i {
+  display: block;
+  height: 100%;
+  background: var(--tr-acento);
+}
+.tr-crono-botoes {
+  display: flex;
+  gap: 6px;
+}
+.tr-crono-botoes button {
+  flex: 1;
+  min-height: 40px;
+  border-radius: 10px;
+  border: 1px solid rgba(238, 243, 255, 0.4);
+  background: transparent;
+  color: #eef3ff;
+  font-weight: 600;
+  cursor: pointer;
+}

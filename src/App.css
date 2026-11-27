@@ -279,7 +279,7 @@ button.mic.gravando {
   font-size: 1.3rem;
 }
 .abas button.ativo {
-  color: var(--primaria);
+  color: var(--destaque);
   font-weight: 700;
 }
 
@@ -291,7 +291,7 @@ button.mic.gravando {
 button.link {
   border: 0;
   background: none;
-  color: var(--primaria);
+  color: var(--destaque);
   cursor: pointer;
   padding: 0 4px;
   text-decoration: underline;
@@ -511,7 +511,7 @@ input.numero {
 .dia-contagem {
   font-size: 0.8rem;
   font-weight: 700;
-  color: var(--primaria);
+  color: var(--destaque);
 }
 
 /* Revisão semanal */
@@ -582,7 +582,7 @@ input.numero {
 
 /* Modo foco */
 button.icone.play {
-  color: var(--primaria);
+  color: var(--destaque);
   font-size: 1rem;
   border: 1px solid var(--borda);
   border-radius: 999px;
@@ -831,4 +831,9 @@ button.link.passos-toggle {
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+
+/* Aba Treino ativa em azul */
+.abas button.aba-treino.ativo {
+  color: #6ea8ff;
 }

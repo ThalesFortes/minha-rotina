@@ -13,8 +13,8 @@ export default defineConfig({
         short_name: 'Rotina',
         description: 'Organiza seu dia por voz ou texto, respeitando horários fixos e pausas.',
         lang: 'pt-BR',
-        theme_color: '#2f6f5e',
-        background_color: '#f4f2ee',
+        theme_color: '#000000',
+        background_color: '#000000',
         display: 'standalone',
         start_url: '/',
         icons: [
