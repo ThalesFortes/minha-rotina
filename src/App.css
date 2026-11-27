@@ -244,6 +244,10 @@ button.mic.gravando {
 }
 .ajustes .linha label {
   flex: 1;
+  justify-content: space-between; /* campos alinhados mesmo com rótulos de 1 ou 2 linhas */
+}
+.ajustes .linha input {
+  width: 100%;
 }
 .ajustes label.check {
   flex-direction: row;
@@ -264,7 +268,7 @@ button.mic.gravando {
 }
 .abas button {
   flex: 1;
-  max-width: 140px;
+  max-width: 112px; /* 5 abas cabem na largura do app (560px) */
   border: 0;
   background: none;
   padding: 10px 0;
